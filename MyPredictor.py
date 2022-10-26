@@ -148,6 +148,8 @@ class MyPredictor():
   def profit(self,start_from = []):
     if start_from == []:
       start_from = self.validate_len
+    if start_from < self.window_len+self.diff_degree:
+      start_from = self.window_len+self.diff_degree
     self.start_from = start_from
     realchange = np.diff(self.realData[start_from-1:])
     predchange = self.predData[start_from-self.window_len-self.diff_degree:]-self.realData[start_from-1:-1]
