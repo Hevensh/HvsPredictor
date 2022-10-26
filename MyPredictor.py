@@ -143,7 +143,8 @@ class MyPredictor():
              which+self.window_len,self.TrendSum[which],'go',
              which+self.window_len,self.T_pre[which],'rx')
     plt.legend(['real','real','trend','trend','pred'])
-
+    plt.grid('on')
+    
   def profit(self,start_from = []):
     if start_from == []:
       start_from = self.validate_len
