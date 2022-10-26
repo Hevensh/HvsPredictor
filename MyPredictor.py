@@ -7,7 +7,7 @@ mpl.rcParams['figure.figsize'] = (8, 6)
 mpl.rcParams['axes.grid'] = False
 
 MyEarlyStopping = tf.keras.callbacks.EarlyStopping(
-    monitor='loss',
+    monitor='val_loss',
     patience=8,mode='min')
 
 class MyModel(tf.keras.Model):
