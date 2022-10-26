@@ -8,7 +8,7 @@ mpl.rcParams['axes.grid'] = False
 
 MyEarlyStopping = tf.keras.callbacks.EarlyStopping(
     monitor='val_loss',
-    patience=8,mode='min')
+    patience=12,mode='min')
 
 class MyModel(tf.keras.Model):
   def __init__(self):
