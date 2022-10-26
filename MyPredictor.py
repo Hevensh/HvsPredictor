@@ -165,7 +165,7 @@ class MyPredictor():
     daily_profit = '{:.5f}'.format(self.daily_profit)
     callback_rate = '{:.5f}'.format(self.callback_rate)
     return '\n'.join([
-        f'The model uses {md1.loss_func}',
+        f'The model uses {self.loss_func}',
         f'Backtest from date {self.start_from}',
         f'Total profit is : {total_profit}%',
         f'Daily profit is : {daily_profit}%',
