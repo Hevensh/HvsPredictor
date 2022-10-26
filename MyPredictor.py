@@ -136,6 +136,14 @@ class MyPredictor():
     plt.legend(['real','pred'])
     plt.grid('on')    
 
+  def slices_plot(self,which=0):
+    plt.plot(range(which,which+self.window_len),self.slicesX[which],'b',
+             which+self.window_len,self.slicesT[which],'bo',
+             range(which,which+self.window_len),np.dot(self.TrendData[which],self.window_pattern),'g--',
+             which+self.window_len,self.TrendSum[which],'go',
+             which+self.window_len,self.T_pre[which],'rx')
+    plt.legend(['real','real','trend','trend','pred'])
+
   def profit(self,start_from = []):
     if start_from == []:
       start_from = self.validate_len
