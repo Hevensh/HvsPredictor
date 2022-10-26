@@ -151,7 +151,7 @@ class MyPredictor():
     self.start_from = start_from
     realchange = np.diff(self.realData[start_from-1:])
     predchange = self.predData[start_from-self.window_len-self.diff_degree:]-self.realData[start_from-1:-1]
-    profit = realchange*predchange*100
+    profit = realchange*predchange*10000
     self.total_profit = profit.sum()
     self.daily_profit = self.total_profit/len(profit)
     self.callback_rate = 0
@@ -164,6 +164,6 @@ class MyPredictor():
     callback_rate = '{:.5f}'.format(self.callback_rate)
     return '\n'.join([
         f'Backtest from date {self.start_from}',
-        f'Total profit is : {total_profit}',
-        f'Daily profit is : {daily_profit}',
-        f'Callback rate is : {callback_rate}'])
+        f'Total profit is : {total_profit}%',
+        f'Daily profit is : {daily_profit}%',
+        f'Callback rate is : {callback_rate}%'])
