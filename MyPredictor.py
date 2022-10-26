@@ -159,8 +159,11 @@ class MyPredictor():
       self.callback_rate = min(0,profit[i]+self.callback_rate)
 
   def __repr__(self):
+    total_profit = '{:.5f}'.format(self.total_profit)
+    daily_profit = '{:.5f}'.format(self.daily_profit)
+    callback_rate = '{:.5f}'.format(self.callback_rate)
     return '\n'.join([
         f'Backtest from date {self.start_from}',
-        f'Total profit is : {self.total_profit}',
-        f'Daily profit is : {self.daily_profit}',
-        f'Callback rate is : {self.callback_rate}'])
+        f'Total profit is : {total_profit}',
+        f'Daily profit is : {daily_profit}',
+        f'Callback rate is : {callback_rate}'])
