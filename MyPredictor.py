@@ -44,9 +44,12 @@ class MyPredictor():
 
     self.trainData = self.data0[diff_degree:, diff_degree]
 
+    self.total_profit = 0
+    self.daily_profit = 0
+    self.callback_rate = 0
 
 
-  def deTrend(self,window_len=12,degree=1):
+  def deTrend(self,window_len=12,degree=0):
     self.window_len = window_len;
     
     self.sample_len = self.data_len-self.diff_degree-window_len
@@ -145,9 +148,19 @@ class MyPredictor():
   def profit(self,start_from = []):
     if start_from == []:
       start_from = self.validate_len
+    self.start_from = start_from
     realchange = np.diff(self.realData[start_from-1:])
-    predchange = self.predData[start_from-self.window_len:]-self.realData[start_from-1:-2]
-    profit = realchange*predchange
-    self.total_prpofit = profit.sum()
-    self.daily_profit = self.total_prpofit/len(profit)
-    self.callback_rate = min(np.cumsum(profit))
+    predchange = self.predData[start_from-self.window_len-self.diff_degree:]-self.realData[start_from-1:-1]
+    profit = realchange*predchange*100
+    self.total_profit = profit.sum()
+    self.daily_profit = self.total_profit/len(profit)
+    self.callback_rate = 0
+    for i in range(len(profit)):
+      self.callback_rate = min(0,profit[i]+self.callback_rate)
+
+  def __repr__(self):
+    return '\n'.join([
+        f'Backtest from date {self.start_from}',
+        f'Total profit is : {self.total_profit}',
+        f'Daily profit is : {self.daily_profit}',
+        f'Callback rate is : {self.callback_rate}'])
