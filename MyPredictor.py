@@ -49,7 +49,7 @@ class MyPredictor():
     self.callback_rate = 0
 
 
-  def deTrend(self,window_len=12,degree=0):
+  def deTrend(self,window_len=12,poly_degree=0):
     self.window_len = window_len;
     
     self.sample_len = self.data_len-self.diff_degree-window_len
@@ -59,9 +59,9 @@ class MyPredictor():
       self.slicesX[i,:] = self.trainData[i:i+window_len]
       self.slicesT[i] = self.trainData[i+window_len]
     
-    self.window_pattern = np.zeros([degree,window_len])
+    self.window_pattern = np.zeros([poly_degree,window_len])
 
-    for i in range(degree):
+    for i in range(poly_degree):
       self.window_pattern[i,:] = np.arange(1-window_len,1)**i
     
     moment_estimate_matrix = np.dot(
