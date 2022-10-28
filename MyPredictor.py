@@ -114,13 +114,13 @@ class MyPredictor():
       start_from = self.window_len+self.diff_degree
 
     if end == []:
-      end = self.data_len-1
+      end = self.data_len
     elif end > self.data_len:
-      end = self.data_len-1
+      end = self.data_len
 
     plt.subplot(2,1,1)
-    plt.plot(range(max(start_from-self.window_len-self.diff_degree,1),end),
-             self.trainData[max(start_from-self.window_len-self.diff_degree,1):end],'b',
+    plt.plot(range(start_from-self.window_len,end),
+             self.trainData[start_from-self.window_len-self.diff_degree:end-self.diff_degree],'b',
              range(start_from,end),self.TrendSum[start_from-self.window_len-self.diff_degree:
                                                  end-self.window_len-self.diff_degree],'g--',
              range(start_from,end),self.T_pre[start_from-self.window_len-self.diff_degree:
@@ -129,14 +129,15 @@ class MyPredictor():
     plt.grid('on')
 
     plt.subplot(2,1,2)
-    plt.plot(range(max(start_from-self.window_len-self.diff_degree,0),end),
-             self.realData[max(start_from-self.window_len-self.diff_degree,0):end],'b',
+    plt.plot(range(start_from-self.window_len-self.diff_degree,end),
+             self.realData[start_from-self.window_len-self.diff_degree:end],'b',
              range(start_from,end),self.predData[start_from-self.window_len-self.diff_degree:
                                                  end-self.window_len-self.diff_degree],'r--')
     plt.legend(['real','pred'])
     plt.grid('on')    
 
-  def slices_plot(self,which=0):
+  def slices_plot(self,which=1):
+    which -= 1
     plt.plot(range(which,which+self.window_len),self.slicesX[which],'b',
              which+self.window_len,self.slicesT[which],'bo',
              range(which,which+self.window_len),np.dot(self.TrendData[which],self.window_pattern),'g--',
