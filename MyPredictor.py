@@ -114,9 +114,9 @@ class MyPredictor():
       start_from = self.window_len+self.diff_degree
 
     if end == []:
-      end = self.data_len
+      end = self.data_len-1
     elif end > self.data_len:
-      end = self.data_len
+      end = self.data_len-1
 
     plt.subplot(2,1,1)
     plt.plot(range(max(start_from-self.window_len-self.diff_degree,1),end),
