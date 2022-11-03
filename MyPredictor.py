@@ -161,13 +161,16 @@ class MyPredictor():
     for i in range(len(profit)):
       self.callback_rate = min(0,profit[i]+self.callback_rate)
 
-  def __repr__(self):
-    total_profit = '{:.4f}'.format(self.total_profit)
-    daily_profit = '{:.4f}'.format(self.daily_profit)
-    callback_rate = '{:.4f}'.format(self.callback_rate)
-    return '\n'.join([
-        f'The model uses {self.loss_func}',
-        f'Backtest from date {self.start_from}',
-        f'Total profit is : {total_profit}%',
-        f'Daily profit is : {daily_profit}%',
-        f'Callback rate is : {callback_rate}%'])
+  def __repr__(self,mode = 'none'):
+    if mode == 'none':
+      return '\n'.join([f'The model uses {self.loss_func}'])
+    elif mode == 'profit':
+      total_profit = '{:.4f}'.format(self.total_profit)
+      daily_profit = '{:.4f}'.format(self.daily_profit)
+      callback_rate = '{:.4f}'.format(self.callback_rate)
+      return '\n'.join([
+            f'The model uses {self.loss_func}',
+            f'Backtest from date {self.start_from}',
+            f'Total profit is : {total_profit}%',
+            f'Daily profit is : {daily_profit}%',
+            f'Callback rate is : {callback_rate}%'])
