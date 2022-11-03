@@ -167,7 +167,7 @@ class MyPredictor():
       self.mse = np.sum((self.predData[self.validate_len-self.window_len-self.diff_degree:]
                          -self.realData[self.validate_len:])**2)/(self.sample_len-self.validate_len)
       return '\n'.join([f'The model uses {self.loss_func}',
-                       f'MSE is {self.mse}'])
+                       f'MSE on test set is {self.mse}'])
     elif self.metrix == 'profit':
       total_profit = '{:.4f}'.format(self.total_profit)
       daily_profit = '{:.4f}'.format(self.daily_profit)
