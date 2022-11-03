@@ -29,12 +29,13 @@ class MyPredictor():
     #  用于预测数据并展示
     #  目前仅支持单列数据进行预测
 
-  def __init__(self,real, diff_degree = 1):
+  def __init__(self,real, diff_degree = 1, metrix = 'mse'):
     #  导入真实数据
     self.realData = real
     self.data_len = len(real);
     self.diff_degree = diff_degree
-
+    self.metrix = metrix
+    
     self.data0 = np.zeros([self.data_len,diff_degree+1])
     self.trainData = np.zeros([self.data_len-diff_degree])
 
@@ -161,10 +162,13 @@ class MyPredictor():
     for i in range(len(profit)):
       self.callback_rate = min(0,profit[i]+self.callback_rate)
 
-  def __repr__(self,mode = 'none'):
-    if mode == 'none':
-      return '\n'.join([f'The model uses {self.loss_func}'])
-    elif mode == 'profit':
+  def __repr__(self):
+    if self.metrix == 'mse':
+      self.mse = np.sum((self.predData[self.validate_len-self.window_len-self.diff_degree:]
+                         -self.realData[self.validate_len:])**2)/(self.sample_len-self.validate_len)
+      return '\n'.join([f'The model uses {self.loss_func}',
+                       f'MSE is {self.mse}'])
+    elif self.metrix == 'profit':
       total_profit = '{:.4f}'.format(self.total_profit)
       daily_profit = '{:.4f}'.format(self.daily_profit)
       callback_rate = '{:.4f}'.format(self.callback_rate)
