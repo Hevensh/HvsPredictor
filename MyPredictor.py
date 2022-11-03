@@ -20,7 +20,7 @@ class MyModel(tf.keras.Model):
     x = self.dense(inputs)
     return self.outputs(x)
 
-class MyLoss(tf.keras.losses.Loss):
+class CautiousLoss(tf.keras.losses.Loss):
   def call(self, y_true, y_pred):
     return tf.reduce_mean(tf.math.square(y_pred-y_true)*
                           (2-tf.math.sign(y_pred)*tf.math.sign(y_true)))
@@ -79,7 +79,7 @@ class MyPredictor():
     self.TrendSum.resize([self.sample_len,1])
     self.deTrendDataT = self.slicesT-self.TrendSum
 
-  def Options_set(self,train_rate=0.6,validate_rate=0.2,loss_func=MyLoss()):
+  def Options_set(self,train_rate=0.6,validate_rate=0.2,loss_func=CautiousLoss()):
     self.train_len = int(train_rate*self.sample_len)
     self.validate_len = int((validate_rate+train_rate)*self.sample_len)
     self.loss_func = loss_func 
