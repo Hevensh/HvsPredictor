@@ -158,9 +158,9 @@ class MyPredictor():
     profit = realchange*predchange*10000
     self.total_profit = profit.sum()
     self.daily_profit = self.total_profit/len(profit)
-    self.callback_rate = 0
+    self.maximum_drawdown = 0
     for i in range(len(profit)):
-      self.callback_rate = min(0,profit[i]+self.callback_rate)
+      self.maximum_drawdown = min(0,profit[i]+self.maximum_drawdown)
 
   def __repr__(self):
     if self.metrix == 'mse':
@@ -171,10 +171,10 @@ class MyPredictor():
     elif self.metrix == 'profit':
       total_profit = '{:.4f}'.format(self.total_profit)
       daily_profit = '{:.4f}'.format(self.daily_profit)
-      callback_rate = '{:.4f}'.format(self.callback_rate)
+      maximum_drawdown = '{:.4f}'.format(self.maximum_drawdown)
       return '\n'.join([
             f'The model uses {self.loss_func}',
             f'Backtest from date {self.start_from}',
             f'Total profit is : {total_profit}%',
             f'Daily profit is : {daily_profit}%',
-            f'Callback rate is : {callback_rate}%'])
+            f'Maximum drawdown is : {maximum_drawdown}%'])
