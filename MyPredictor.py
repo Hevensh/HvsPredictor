@@ -29,12 +29,12 @@ class MyPredictor():
     #  用于预测数据并展示
     #  目前仅支持单列数据进行预测
 
-  def __init__(self,real, diff_degree = 1, metrix = 'mse'):
+  def __init__(self,real, diff_degree = 1, metrics = 'mse'):
     #  导入真实数据
     self.realData = real
     self.data_len = len(real);
     self.diff_degree = diff_degree
-    self.metrix = metrix
+    self.metrics = metrics
     
     self.data0 = np.zeros([self.data_len,diff_degree+1])
     self.trainData = np.zeros([self.data_len-diff_degree])
@@ -163,12 +163,12 @@ class MyPredictor():
       self.maximum_drawdown = min(0,profit[i]+self.maximum_drawdown)
 
   def __repr__(self):
-    if self.metrix == 'mse':
+    if self.metrics == 'mse':
       self.mse = np.sum((self.predData[self.validate_len-self.window_len-self.diff_degree:]
                          -self.realData[self.validate_len:])**2)/(self.sample_len-self.validate_len)
       return '\n'.join([f'The model uses {self.loss_func}',
                        f'MSE on test set is {self.mse}'])
-    elif self.metrix == 'profit':
+    elif self.metrics == 'profit':
       total_profit = '{:.4f}'.format(self.total_profit)
       daily_profit = '{:.4f}'.format(self.daily_profit)
       maximum_drawdown = '{:.4f}'.format(self.maximum_drawdown)
