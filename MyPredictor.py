@@ -159,8 +159,11 @@ class MyPredictor():
     self.total_profit = profit.sum()
     self.daily_profit = self.total_profit/len(profit)
     self.maximum_drawdown = 0
+    temp_maximum_drawdown = 0
     for i in range(len(profit)):
-      self.maximum_drawdown = min(0,profit[i]+self.maximum_drawdown)
+      temp_maximum_drawdown = min(0,profit[i]+temp_maximum_drawdown)
+      if temp_maximum_drawdown<self.maximum_drawdown:
+        self.maximum_drawdown = temp_maximum_drawdown
 
   def __repr__(self):
     if self.metrics == 'mse':
