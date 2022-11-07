@@ -147,7 +147,7 @@ class MyPredictor():
     plt.legend(['real','real','trend','trend','pred'])
     plt.grid('on')
     
-  def profit(self,start_from = []):
+  def profit(self,start_from = [],daily_limit = 0.1):
     if start_from == []:
       start_from = self.validate_len
     if start_from < self.window_len+self.diff_degree:
@@ -155,7 +155,7 @@ class MyPredictor():
     self.start_from = start_from
     realchange = np.diff(self.realData[start_from-1:])
     predchange = self.predData[start_from-self.window_len-self.diff_degree:]-self.realData[start_from-1:-1]
-    profit = realchange*predchange*10000
+    profit = realchange*predchange*(100/daily_limit)
     self.total_profit = profit.sum()
     self.daily_profit = self.total_profit/len(profit)
     self.maximum_drawdown = 0
