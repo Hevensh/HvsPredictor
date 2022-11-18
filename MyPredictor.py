@@ -13,8 +13,8 @@ MyEarlyStopping = tf.keras.callbacks.EarlyStopping(
 class MyModel(tf.keras.Model):
   def __init__(self):
     super().__init__()
-    self.dense1 = tf.keras.layers.Dense(4, activation='sigmoid')
-    self.dense2 = tf.keras.layers.Dense(4, activation='linear')
+    self.dense1 = tf.keras.layers.Dense(6, activation='sigmoid')
+    self.dense2 = tf.keras.layers.Dense(6, activation='linear')
     self.outputs = tf.keras.layers.Dense(1)
 
   def call(self, inputs):
