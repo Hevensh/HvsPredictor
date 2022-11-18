@@ -13,12 +13,14 @@ MyEarlyStopping = tf.keras.callbacks.EarlyStopping(
 class MyModel(tf.keras.Model):
   def __init__(self):
     super().__init__()
-    self.dense = tf.keras.layers.Dense(3, activation="linear")
-    self.outputs = tf.keras.layers.Dense(1, name="predictions")
+    self.dense1 = tf.keras.layers.Dense(6, activation='sigmoid')
+    self.dense2 = tf.keras.layers.Dense(6, activation='linear')
+    self.outputs = tf.keras.layers.Dense(1)
 
   def call(self, inputs):
-    x = self.dense(inputs)
-    return self.outputs(x)
+    x1 = self.dense1(inputs)
+    x2 = self.dense2(inputs)
+    return self.outputs(x1*x2)
 
 class CautiousLoss(tf.keras.losses.Loss):
   def call(self, y_true, y_pred):
